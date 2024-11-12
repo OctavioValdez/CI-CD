@@ -29,10 +29,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Test with Flask
-        run: |
-          python -m flask --version  # Asegúrate de que Flask esté instalado
-
       - name: Build Docker image
         run: docker build -t flask-docker-cicd .
 
@@ -41,6 +37,7 @@ jobs:
 
   push-to-ecr:
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
       - name: Checkout code
