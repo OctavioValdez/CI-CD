@@ -34,7 +34,7 @@ jobs:
           AWS_REGION: ${{ env.AWS_REGION }}
           AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
         run: |
-          $(aws ecr get-login --no-include-email --region ap-southeast-1)
+          $(aws ecr get-login --no-include-email --region us-east-1)
 
       - name: Build, tag, and push image to ECR
         env:
