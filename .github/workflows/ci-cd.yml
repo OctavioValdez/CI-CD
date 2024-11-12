@@ -29,12 +29,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
       - name: Log in to Amazon ECR
         env:
           AWS_REGION: ${{ env.AWS_REGION }}
           AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
         run: |
-          $(aws ecr get-login --no-include-email --region us-east-1)
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
       - name: Build, tag, and push image to ECR
         env:
