@@ -46,6 +46,6 @@ jobs:
           AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         run: |
-          docker build -t flask-api .
-          docker tag flask-api:latest $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cicd-app:latest
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cicd-app
+          docker build -t cicd-app .
+          docker tag cicd-app:latest 060795930894.dkr.ecr.us-east-1.amazonaws.com/cicd-app:latest
+          docker push 060795930894.dkr.ecr.us-east-1.amazonaws.com/cicd-app:latest
