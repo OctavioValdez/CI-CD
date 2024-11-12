@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Test with Flask
+        run: |
+          python -m flask --version  # Asegúrate de que Flask esté instalado
+
+      - name: Build Docker image
+        run: docker build -t flask-docker-cicd .
+
+      - name: Run Docker container
+        run: docker run -d -p 5000:5000 flask-docker-cicd
