@@ -9,6 +9,27 @@ on:
       - master
 
 jobs:
+  push-to-dockerhub:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        env:
+          DOCKER_PASSWORD: ${{ env.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ env.DOCKER_PASSWORD }}
+        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+      - name: Push Docker image to Docker Hub
+        env:
+          DOCKER_PASSWORD: ${{ env.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ env.DOCKER_PASSWORD }}
+        run: |
+          docker tag flask-docker-cicd $DOCKER_USERNAME/flask-docker-cicd:latest
+          docker push $DOCKER_USERNAME/flask-docker-cicd:latest
+
   build-and-push-to-ecr:
     runs-on: ubuntu-latest
 
