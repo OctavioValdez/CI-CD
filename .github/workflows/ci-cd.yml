@@ -45,7 +45,8 @@ jobs:
           AWS_REGION: ${{ env.AWS_REGION }}
           AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
+          TAG: ${{ github.sha }}
         run: |
           docker build -t cicd-app .
-          docker tag cicd-app:latest 060795930894.dkr.ecr.us-east-1.amazonaws.com/cicd-app:latest
-          docker push 060795930894.dkr.ecr.us-east-1.amazonaws.com/cicd-app:latest
+          docker tag cicd-app:latest 060795930894.dkr.ecr.us-east-1.amazonaws.com/cicd-app:$TAG
+          docker push 060795930894.dkr.ecr.us-east-1.amazonaws.com/cicd-app:$TAG
