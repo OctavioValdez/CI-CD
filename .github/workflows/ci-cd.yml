@@ -46,6 +46,6 @@ jobs:
           AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         run: |
-          IMAGE_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
-          docker build -t $IMAGE_URI .
-          docker push $IMAGE_URI
+          docker build -t flask-api .
+          docker tag flask-api:latest $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws/flask-api:latest
+          docker push flask-api:latest $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws/flask-api:latest
