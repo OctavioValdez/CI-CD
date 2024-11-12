@@ -47,5 +47,5 @@ jobs:
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         run: |
           docker build -t flask-api .
-          docker tag flask-api:latest $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws/flask-api:latest
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws/flask-api:latest
+          docker tag flask-api:latest $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cicd-app:latest
+          docker push $AWS_ACCOUNT_ID..dkr.ecr.us-east-1.amazonaws.com/cicd-app
